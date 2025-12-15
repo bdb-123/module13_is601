@@ -8,12 +8,12 @@
     <h2>Login</h2>
     
     <!-- Success Alert -->
-    <div id="successAlert" class="alert alert-success" style="display: none;" data-testid="success-message">
+    <div id="successAlert" class="alert alert-success hidden" data-testid="success-message">
       <span id="successMessage"></span>
     </div>
 
     <!-- Error Alert -->
-    <div id="errorAlert" class="alert alert-error" style="display: none;" data-testid="error-message">
+    <div id="errorAlert" class="alert alert-error hidden" data-testid="error-message">
       <span id="errorMessage"></span>
     </div>
 
@@ -63,19 +63,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showError(message) {
         errorMessage.textContent = message;
-        errorAlert.style.display = 'block';
-        successAlert.style.display = 'none';
+        errorAlert.classList.remove('hidden');
+        successAlert.classList.add('hidden');
     }
 
     function showSuccess(message) {
         successMessage.textContent = message;
-        successAlert.style.display = 'block';
-        errorAlert.style.display = 'none';
+        successAlert.classList.remove('hidden');
+        errorAlert.classList.add('hidden');
     }
 
     function hideAlerts() {
-        errorAlert.style.display = 'none';
-        successAlert.style.display = 'none';
+        errorAlert.classList.add('hidden');
+        successAlert.classList.add('hidden');
     }
 
     // Form validation
@@ -199,6 +199,10 @@ document.addEventListener('DOMContentLoaded', function() {
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
     color: #721c24;
+}
+
+.hidden {
+    display: none !important;
 }
 
 .form-group {

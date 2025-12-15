@@ -3,6 +3,67 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h2>Welcome to the Calculations App</h2>
-<p>Please login or register to start using the application.</p>
+<div class="home-container">
+  <h2>Welcome to the Calculations App</h2>
+  <p>Please login or register to start using the application.</p>
+  
+  <div class="home-actions">
+    <a href="/login" class="btn btn-primary">Login</a>
+    <a href="/register" class="btn btn-secondary">Register</a>
+  </div>
+</div>
+
+<style>
+.home-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.home-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.home-container p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.home-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn-secondary {
+    background-color: #2196F3;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #0b7dda;
+}
+</style>
 {% endblock %}

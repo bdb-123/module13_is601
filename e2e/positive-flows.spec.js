@@ -19,8 +19,8 @@ test.describe('User Registration and Login - Positive Flows', () => {
     username: `testuser${timestamp}${randomNum}`,
     firstName: 'Test',
     lastName: 'User',
-    password: 'SecurePassword123',
-    confirmPassword: 'SecurePassword123'
+    password: 'SecurePass123!',
+    confirmPassword: 'SecurePass123!'
   };
 
   test('should successfully register a new user', async ({ page }) => {
@@ -140,8 +140,8 @@ test.describe('User Registration and Login - Positive Flows', () => {
       username: `flowtest${flowTimestamp}${flowRandom}`,
       firstName: 'Flow',
       lastName: 'Test',
-      password: 'MySecurePass123',
-      confirmPassword: 'MySecurePass123'
+      password: 'MySecurePass123!',
+      confirmPassword: 'MySecurePass123!'
     };
     
     // STEP 1: Register
@@ -208,7 +208,7 @@ test.describe('Registration - Additional Positive Scenarios', () => {
     const user = {
       email: `minpass${timestamp}@example.com`,
       username: `minpass${timestamp}`,
-      password: 'Pass1234' // Exactly 8 characters
+      password: 'Pass123!' // Exactly 8 characters with all requirements
     };
     
     await page.goto('/register');
@@ -302,7 +302,7 @@ test.describe('Login - Additional Positive Scenarios', () => {
     const user = {
       email: `persist${timestamp}@example.com`,
       username: `persist${timestamp}`,
-      password: 'PersistPass123'
+      password: 'PersistPass123!'
     };
     
     // Register
@@ -344,7 +344,7 @@ test.describe('Login - Additional Positive Scenarios', () => {
     const user = {
       email: `immediate${timestamp}@example.com`,
       username: `immediate${timestamp}`,
-      password: 'ImmediatePass123'
+      password: 'ImmediatePass123!'
     };
     
     // Register

@@ -26,12 +26,12 @@ jobs:
       
       - name: Start Docker services
         run: |
-          docker-compose -f docker-compose.ci.yml up --build --wait --detach
+          docker compose -f docker-compose.ci.yml up --build --wait --detach
       
       - name: Verify services are healthy
         run: |
           echo "Checking service status..."
-          docker-compose -f docker-compose.ci.yml ps
+          docker compose -f docker-compose.ci.yml ps
           echo "Testing health endpoint..."
           curl -f http://localhost:8000/health || exit 1
           echo "All services are healthy!"
@@ -57,7 +57,7 @@ jobs:
       
       - name: Stop and cleanup services
         if: always()
-        run: docker-compose -f docker-compose.ci.yml down -v
+        run: docker compose -f docker-compose.ci.yml down -v
 
   docker-build-push:
     # Only run on push to main (not on PRs)

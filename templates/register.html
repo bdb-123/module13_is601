@@ -8,12 +8,12 @@
     <h2>Create Account</h2>
     
     <!-- Success Alert -->
-    <div id="successAlert" class="alert alert-success" style="display: none;" data-testid="success-message">
+    <div id="successAlert" class="alert alert-success hidden" data-testid="success-message">
       <span id="successMessage"></span>
     </div>
 
     <!-- Error Alert -->
-    <div id="errorAlert" class="alert alert-error" style="display: none;" data-testid="error-message">
+    <div id="errorAlert" class="alert alert-error hidden" data-testid="error-message">
       <span id="errorMessage"></span>
     </div>
 
@@ -75,7 +75,7 @@
           placeholder="At least 8 characters"
           data-testid="password-input"
         >
-        <small class="form-help">Must be at least 8 characters long</small>
+        <small class="form-help">Must be at least 8 characters with uppercase, lowercase, digit, and special character (!@#$%^&*etc.)</small>
       </div>
 
       <div class="form-group">
@@ -111,23 +111,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showError(message) {
         errorMessage.textContent = message;
-        errorAlert.style.display = 'block';
-        successAlert.style.display = 'none';
+        errorAlert.classList.remove('hidden');
+        successAlert.classList.add('hidden');
         // Scroll to top to see error
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function showSuccess(message) {
         successMessage.textContent = message;
-        successAlert.style.display = 'block';
-        errorAlert.style.display = 'none';
+        successAlert.classList.remove('hidden');
+        errorAlert.classList.add('hidden');
         // Scroll to top to see success
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function hideAlerts() {
-        errorAlert.style.display = 'none';
-        successAlert.style.display = 'none';
+        errorAlert.classList.add('hidden');
+        successAlert.classList.add('hidden');
     }
 
     // Email validation
@@ -289,6 +289,10 @@ document.addEventListener('DOMContentLoaded', function() {
     border: 1px solid #f5c6cb;
     color: #721c24;
     font-weight: bold;
+}
+
+.hidden {
+    display: none !important;
 }
 
 .form-group {

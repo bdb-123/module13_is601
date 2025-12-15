@@ -4,8 +4,14 @@ const { test, expect } = require('@playwright/test');
 /**
  * Negative Flow Tests for User Registration and Login
  * 
- * These tests verify error handling when:
- * 1. Invalid data is submitted (client-side validation)
+ * These tests verify error handling whe      email: `duplicate${timestamp}@example.com`,
+      us      email: `wrongpass${timestamp}@example.com`,
+      username: `wrongpassuser${timestamp}`,
+      correctPassword: 'CorrectPassword123!',
+      wrongPassword: 'WrongPassword456!'
+    };e: `duplicateuser${timestamp}`,
+      password: 'DuplicatePass123!'
+    };* 1. Invalid data is submitted (client-side validation)
  * 2. Server returns errors (server-side validation)
  */
 
@@ -416,8 +422,8 @@ test.describe('Combined Negative Scenarios', () => {
     const user = {
       email: `combined${timestamp}@example.com`,
       username: `combined${timestamp}`,
-      correctPassword: 'CorrectPass123',
-      wrongPassword: 'WrongPass456'
+      correctPassword: 'CorrectPass123!',
+      wrongPassword: 'WrongPass456!'
     };
     
     // Register successfully
