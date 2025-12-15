@@ -18,11 +18,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
       
       - name: Install Playwright and dependencies
         run: |
-          npm ci
+          npm install
           npx playwright install --with-deps
       
       - name: Start Docker services
@@ -38,7 +37,7 @@ jobs:
           echo "All services are healthy!"
       
       - name: Run Playwright E2E tests
-        run: npm test
+        run: npm run e2e
       
       - name: Upload Playwright report
         if: always()
