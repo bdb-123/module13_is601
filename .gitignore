@@ -6,3 +6,16 @@ __pycache__/
 .pytest_cache
 htmlcov
 .env
+
+# Node.js / NPM
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Playwright
+playwright-report/
+test-results/
+playwright/.cache/

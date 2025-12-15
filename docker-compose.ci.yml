@@ -1,31 +1,39 @@
+# CI-optimized Docker Compose configuration
+# Use: docker-compose -f docker-compose.ci.yml up --build --wait
+# This configuration is optimized for CI/CD environments with:
+# - Faster health checks
+# - No volume mounts for consistency
+# - Minimal services (no pgadmin)
+# - Shorter timeouts and retries
+
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
     environment:
       PYTHONDONTWRITEBYTECODE: 1
       PYTHONUNBUFFERED: 1
       DATABASE_URL: postgresql://postgres:postgres@db:5432/fastapi_db
       TEST_DATABASE_URL: postgresql://postgres:postgres@db:5432/fastapi_test_db
-      JWT_SECRET_KEY: "super-secret-key-for-jwt-min-32-chars"
-      JWT_REFRESH_SECRET_KEY: "super-refresh-secret-key-min-32-chars"
+      JWT_SECRET_KEY: "ci-test-secret-key-for-jwt-min-32-chars"
+      JWT_REFRESH_SECRET_KEY: "ci-test-refresh-secret-key-min-32-chars"
       ACCESS_TOKEN_EXPIRE_MINUTES: 30
       REFRESH_TOKEN_EXPIRE_DAYS: 7
-      BCRYPT_ROUNDS: 12
+      BCRYPT_ROUNDS: 4
     command: >
-      sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+      sh -c "python -m app.database_init && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     depends_on:
       db:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
-      interval: 10s
-      timeout: 5s
+      interval: 5s
+      timeout: 3s
       retries: 5
-      start_period: 10s
+      start_period: 5s
     networks:
       - app-network
 
@@ -38,36 +46,14 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d fastapi_db"]
-      interval: 10s
-      timeout: 5s
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
       retries: 5
     networks:
       - app-network
-
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "5050:80"
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - app-network
-
-volumes:
-  postgres_data:
-    driver: local
-  pgadmin_data:
-    driver: local
 
 networks:
   app-network:

@@ -82,7 +82,7 @@ class User(Base):
         Returns:
             bool: True if password matches, False otherwise
         """
-        from app.auth.jwt import verify_password
+        from app.auth.security import verify_password
         return verify_password(plain_password, self.password)
 
     @classmethod
@@ -96,8 +96,8 @@ class User(Base):
         Returns:
             str: The hashed password
         """
-        from app.auth.jwt import get_password_hash
-        return get_password_hash(password)
+        from app.auth.security import hash_password
+        return hash_password(password)
 
     @classmethod
     def register(cls, db, user_data: dict):
@@ -115,18 +115,24 @@ class User(Base):
             ValueError: If password is invalid or username/email already exists
         """
         password = user_data.get("password")
-        if not password or len(password) < 6:
-            raise ValueError("Password must be at least 6 characters long")
+        if not password or len(password) < 8:
+            raise ValueError("Password must be at least 8 characters long")
         
-        # Check for duplicate email or username
+        # Check for duplicate email or username (fallback check)
+        # Note: The endpoint should check this first for better error messages
         existing_user = db.query(cls).filter(
             or_(cls.email == user_data["email"], cls.username == user_data["username"])
         ).first()
         if existing_user:
-            raise ValueError("Username or email already exists")
+            if existing_user.email == user_data["email"]:
+                raise ValueError("Email already exists")
+            else:
+                raise ValueError("Username already exists")
+        
+        # Hash the password
+        hashed_password = cls.hash_password(password)
         
         # Create new user instance
-        hashed_password = cls.hash_password(password)
         user = cls(
             first_name=user_data["first_name"],
             last_name=user_data["last_name"],
@@ -136,6 +142,8 @@ class User(Base):
             is_active=True,
             is_verified=False
         )
+        
+        # Add to session (don't commit here - let the endpoint handle it)
         db.add(user)
         return user
 

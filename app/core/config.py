@@ -2,14 +2,17 @@
 from functools import lru_cache
 from pydantic_settings import BaseSettings
 from typing import Optional, List
+import secrets
 
 class Settings(BaseSettings):
     # Database settings (keeping your existing default)
     DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/fastapi_db"
     
     # JWT Settings
-    JWT_SECRET_KEY: str = "your-super-secret-key-change-this-in-production"
-    JWT_REFRESH_SECRET_KEY: str = "your-refresh-secret-key-change-this-in-production"
+    # Generate a secure random key for local dev, but should be set in production via env
+    SECRET_KEY: str = secrets.token_urlsafe(32)  # Simple name for general use
+    JWT_SECRET_KEY: str = "your-super-secret-key-change-this-in-production"  # Access tokens
+    JWT_REFRESH_SECRET_KEY: str = "your-refresh-secret-key-change-this-in-production"  # Refresh tokens
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7

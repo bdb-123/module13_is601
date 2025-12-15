@@ -9,6 +9,14 @@ from .user import (
 )
 
 from .token import Token, TokenData, TokenResponse
+
+from .auth import (
+    UserRegister,
+    UserLogin as AuthUserLogin,
+    TokenResponse as AuthTokenResponse,
+    ErrorResponse
+)
+
 from .calculation import (
     CalculationType,
     CalculationBase,
@@ -27,6 +35,12 @@ __all__ = [
     'Token',
     'TokenData',
     'TokenResponse',
+    # Auth schemas
+    'UserRegister',
+    'AuthUserLogin',
+    'AuthTokenResponse',
+    'ErrorResponse',
+    # Calculation schemas
     'CalculationType',
     'CalculationBase',
     'CalculationCreate',

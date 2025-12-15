@@ -1,6 +1,97 @@
-# 📦 Project Setup
+# FastAPI Authentication & Calculator API
+
+A production-ready FastAPI application with JWT authentication, PostgreSQL database, and comprehensive E2E testing using Playwright.
+
+## � Quick Start
+
+### Prerequisites
+- Docker & Docker Compose
+- Node.js 18+ (for E2E tests)
+
+### Run Locally
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/bdb-123/module13_is601.git
+   cd module13_is601
+   ```
+
+2. **Start the application**
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Open the application**
+   - **Register**: http://localhost:8000/register
+   - **Login**: http://localhost:8000/login
+   - **Home**: http://localhost:8000/
+   - **API Docs**: http://localhost:8000/docs
+
+4. **Stop the application**
+   ```bash
+   docker-compose down -v
+   ```
+
+## 🧪 Run Playwright E2E Tests
+
+1. **Install dependencies**
+   ```bash
+   npm ci
+   ```
+
+2. **Install Playwright browsers**
+   ```bash
+   npx playwright install --with-deps
+   ```
+
+3. **Run E2E tests**
+   ```bash
+   npm run e2e
+   ```
+
+4. **View test report**
+   ```bash
+   npx playwright show-report
+   ```
+
+## 🐳 Docker Hub
+
+Pre-built Docker images are available on Docker Hub:
+
+**Repository**: [bdb-123/module13_is601](https://hub.docker.com/r/bdb-123/module13_is601)
+
+```bash
+# Pull latest version
+docker pull bdb-123/module13_is601:latest
+
+# Pull specific version by git SHA
+docker pull bdb-123/module13_is601:<git_sha>
+```
+
+## 📋 Features
+
+- ✅ **JWT Authentication** - Secure token-based authentication
+- ✅ **User Registration** - Email-based registration with password hashing
+- ✅ **User Login** - Session management with access tokens
+- ✅ **PostgreSQL Database** - Persistent data storage with SQLAlchemy ORM
+- ✅ **RESTful API** - FastAPI with automatic OpenAPI documentation
+- ✅ **E2E Testing** - Playwright tests covering positive and negative flows
+- ✅ **Docker Support** - Full containerization with health checks
+- ✅ **CI/CD Pipeline** - GitHub Actions with automated testing and Docker Hub publishing
+
+## 🏗️ Architecture
+
+- **Backend**: FastAPI 0.115.8
+- **Database**: PostgreSQL 17
+- **ORM**: SQLAlchemy 2.0.38
+- **Authentication**: JWT with python-jose
+- **Password Hashing**: bcrypt via passlib
+- **Testing**: Playwright 1.48.0
+- **Containerization**: Docker & Docker Compose
 
 ---
+
+# 📦 Full Setup Guide
 
 # 🧩 1. Install Homebrew (Mac Only)
 

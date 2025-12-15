@@ -98,26 +98,25 @@ class UserResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 class UserLogin(BaseModel):
-    """Schema for user login"""
+    """
+    Schema for user login.
+    Accepts email or username with password for authentication.
+    """
     username: str = Field(
         ...,
-        min_length=3,
-        max_length=50,
-        example="johndoe",
-        description="Username or email"
+        min_length=1,  # Allow any length for login (could be email or username)
+        description="Username or email address"
     )
     password: str = Field(
         ...,
-        min_length=8,
-        max_length=128,
-        example="SecurePass123!",
-        description="Password"
+        min_length=1,  # Don't validate password length on login
+        description="User's password"
     )
 
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
-                "username": "johndoe",
+                "username": "john.doe@example.com",
                 "password": "SecurePass123!"
             }
         }

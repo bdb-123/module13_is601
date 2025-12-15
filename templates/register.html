@@ -3,152 +3,191 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-  <div class="relative py-3 sm:max-w-xl sm:mx-auto">
-    <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-      <div class="max-w-md mx-auto">
-        <div class="divide-y divide-gray-200">
-          <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Create Account</h2>
-            
-            <!-- Alert for errors -->
-            <div id="errorAlert" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-              <span id="errorMessage" class="block sm:inline"></span>
-            </div>
-
-            <!-- Alert for success -->
-            <div id="successAlert" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-              <span id="successMessage" class="block sm:inline"></span>
-            </div>
-
-            <form id="registrationForm" class="space-y-6">
-              <div>
-                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input type="text" id="username" name="username" required
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              </div>
-
-              <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email" required
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              </div>
-
-              <div>
-                <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-                <input type="text" id="first_name" name="first_name" required
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              </div>
-
-              <div>
-                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                <input type="text" id="last_name" name="last_name" required
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              </div>
-
-              <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" id="password" name="password" required
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              </div>
-
-              <div>
-                <label for="confirm_password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" required
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              </div>
-
-              <div class="flex items-center justify-between mt-6">
-                <button type="submit" 
-                        class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                  Register
-                </button>
-              </div>
-            </form>
-
-            <p class="mt-4 text-sm text-gray-600 text-center">
-              Already have an account? 
-              <a href="/login" class="font-medium text-indigo-600 hover:text-indigo-500">Log in</a>
-            </p>
-          </div>
-        </div>
-      </div>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Create Account</h2>
+    
+    <!-- Success Alert -->
+    <div id="successAlert" class="alert alert-success" style="display: none;" data-testid="success-message">
+      <span id="successMessage"></span>
     </div>
+
+    <!-- Error Alert -->
+    <div id="errorAlert" class="alert alert-error" style="display: none;" data-testid="error-message">
+      <span id="errorMessage"></span>
+    </div>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          required
+          placeholder="your.email@example.com"
+          data-testid="email-input"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username *</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          required
+          minlength="3"
+          placeholder="Choose a username"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="first_name">First Name *</label>
+        <input 
+          type="text" 
+          id="first_name" 
+          name="first_name" 
+          required
+          placeholder="John"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="last_name">Last Name *</label>
+        <input 
+          type="text" 
+          id="last_name" 
+          name="last_name" 
+          required
+          placeholder="Doe"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          required
+          minlength="8"
+          placeholder="At least 8 characters"
+          data-testid="password-input"
+        >
+        <small class="form-help">Must be at least 8 characters long</small>
+      </div>
+
+      <div class="form-group">
+        <label for="confirm_password">Confirm Password *</label>
+        <input 
+          type="password" 
+          id="confirm_password" 
+          name="confirm_password" 
+          required
+          minlength="8"
+          placeholder="Re-enter your password"
+          data-testid="confirm-password-input"
+        >
+      </div>
+
+      <button type="submit" class="btn btn-primary" data-testid="submit-button">Register</button>
+    </form>
+
+    <p class="auth-link">
+      Already have an account? 
+      <a href="/login">Login here</a>
+    </p>
   </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('registrationForm');
+    const form = document.getElementById('registerForm');
     const errorAlert = document.getElementById('errorAlert');
     const errorMessage = document.getElementById('errorMessage');
     const successAlert = document.getElementById('successAlert');
     const successMessage = document.getElementById('successMessage');
 
-    // Helper function to show error
     function showError(message) {
         errorMessage.textContent = message;
-        errorAlert.classList.remove('hidden');
-        successAlert.classList.add('hidden');
+        errorAlert.style.display = 'block';
+        successAlert.style.display = 'none';
+        // Scroll to top to see error
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Helper function to show success
     function showSuccess(message) {
         successMessage.textContent = message;
-        successAlert.classList.remove('hidden');
-        errorAlert.classList.add('hidden');
+        successAlert.style.display = 'block';
+        errorAlert.style.display = 'none';
+        // Scroll to top to see success
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Helper function to validate email format
+    function hideAlerts() {
+        errorAlert.style.display = 'none';
+        successAlert.style.display = 'none';
+    }
+
+    // Email validation
     function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     }
 
-    // Helper function to validate password strength
-    function isValidPassword(password) {
-        return password.length >= 8 && // at least 8 characters
-               /[A-Z]/.test(password) && // at least one uppercase
-               /[a-z]/.test(password) && // at least one lowercase
-               /[0-9]/.test(password); // at least one number
-    }
-
+    // Form submission
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        hideAlerts();
 
-        // Clear previous alerts
-        errorAlert.classList.add('hidden');
-        successAlert.classList.add('hidden');
-
-        // Get form data
-        const formData = {
-            username: form.username.value.trim(),
-            email: form.email.value.trim(),
-            password: form.password.value,
-            confirm_password: form.confirm_password.value,
-            first_name: form.first_name.value.trim(),
-            last_name: form.last_name.value.trim()
-        };
+        // Get form values
+        const email = document.getElementById('email').value.trim();
+        const username = document.getElementById('username').value.trim();
+        const firstName = document.getElementById('first_name').value.trim();
+        const lastName = document.getElementById('last_name').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
 
         // Client-side validation
-        if (!formData.username || formData.username.length < 3) {
-            showError('Username must be at least 3 characters long');
+        if (!email || !username || !firstName || !lastName || !password || !confirmPassword) {
+            showError('All fields are required');
             return;
         }
 
-        if (!isValidEmail(formData.email)) {
+        // Validate email format
+        if (!isValidEmail(email)) {
             showError('Please enter a valid email address');
             return;
         }
 
-        if (!isValidPassword(formData.password)) {
-            showError('Password must be at least 8 characters long and contain uppercase, lowercase, and numbers');
+        // Validate username length
+        if (username.length < 3) {
+            showError('Username must be at least 3 characters long');
             return;
         }
 
-        if (formData.password !== formData.confirm_password) {
+        // Validate password length
+        if (password.length < 8) {
+            showError('Password must be at least 8 characters long');
+            return;
+        }
+
+        // Validate passwords match
+        if (password !== confirmPassword) {
             showError('Passwords do not match');
             return;
         }
+
+        // Prepare request data
+        const requestData = {
+            email: email,
+            username: username,
+            first_name: firstName,
+            last_name: lastName,
+            password: password,
+            confirm_password: confirmPassword
+        };
 
         try {
             const response = await fetch('/auth/register', {
@@ -156,33 +195,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(requestData)
             });
 
             const data = await response.json();
 
             if (!response.ok) {
+                // Handle error response
                 throw new Error(data.detail || 'Registration failed');
             }
 
-            // Show success message
-            showSuccess('Registration successful! Redirecting to login...');
+            // Success! Store token in localStorage
+            localStorage.setItem('token', data.access_token);
+            
+            // Also store refresh token and user info (optional but useful)
+            if (data.refresh_token) {
+                localStorage.setItem('refresh_token', data.refresh_token);
+            }
+            if (data.user_id) {
+                localStorage.setItem('user_id', data.user_id);
+            }
+            if (data.username) {
+                localStorage.setItem('username', data.username);
+            }
 
-            // Redirect to login page after 2 seconds
+            // Show success message
+            showSuccess('Registration successful! Redirecting to dashboard...');
+
+            // Redirect after 1.5 seconds
             setTimeout(() => {
-                window.location.href = '/login';
-            }, 2000);
+                window.location.href = '/dashboard';
+            }, 1500);
 
         } catch (error) {
+            // Show error message
             showError(error.message || 'An error occurred during registration');
         }
     });
 
     // Real-time password match validation
-    const passwordInput = form.password;
-    const confirmPasswordInput = form.confirm_password;
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm_password');
 
-    function validatePasswordMatch() {
+    function checkPasswordMatch() {
         if (confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
             confirmPasswordInput.setCustomValidity("Passwords don't match");
         } else {
@@ -190,8 +245,120 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    passwordInput.addEventListener('change', validatePasswordMatch);
-    confirmPasswordInput.addEventListener('keyup', validatePasswordMatch);
+    passwordInput.addEventListener('input', checkPasswordMatch);
+    confirmPasswordInput.addEventListener('input', checkPasswordMatch);
 });
 </script>
+
+<style>
+.auth-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.auth-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.alert {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    font-weight: bold;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.form-group input:invalid {
+    border-color: #f44336;
+}
+
+.form-help {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #777;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.auth-link a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+</style>
 {% endblock %}
